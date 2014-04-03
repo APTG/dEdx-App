@@ -1,0 +1,141 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity" >
+
+        <TextView
+            android:id="@+id/program_info_i"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Program:"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/program_spinner_i"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/program_info_i"
+            android:spinnerMode="dialog" />
+
+        <LinearLayout
+            android:id="@+id/info_layout_i"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/program_spinner_i"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/ion_info_i"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:text="Ion:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/atom_info_i"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".35"
+                android:text="Mass no. :"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ion_layout_i"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/info_layout_i"
+            android:orientation="horizontal" >
+
+            <Spinner
+                android:id="@+id/ion_spinner_i"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:spinnerMode="dialog" />
+
+            <EditText
+                android:id="@+id/atom_value_i"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".35"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/material_info_i"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ion_layout_i"
+            android:text="Target:"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/material_spinner_i"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/material_info_i"
+            android:spinnerMode="dialog" />
+
+        <TextView
+            android:id="@+id/range_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/material_spinner_i"
+            android:text="Type in CSDA range: (g/cm^2)"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/range_value"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/range_text"
+            android:inputType="numberDecimal" />
+
+        <Button
+            android:id="@+id/calc_inverse_csda"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/range_value"
+            android:onClick="calcInverseCSDA"
+            android:text="Calc inverse CSDA"
+            android:textSize="22sp" />
+
+        <TextView 
+            android:id="@+id/res_csda_info"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/calc_inverse_csda"
+            android:textSize="26sp"
+            android:text="Energy: (MeV/nucleon)"/>
+        
+        <TextView
+            android:id="@+id/energy_text_i"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/res_csda_info"
+            android:layout_margin="5dp"
+            android:background="@drawable/border" 
+            android:clickable="true"
+            android:onClick="copyResult"
+            android:gravity="center"
+            android:textSize="26sp" />
+        
+         <ImageView 
+            android:layout_below="@+id/energy_text_i"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:src="@drawable/logo" />
+    </RelativeLayout>
+
+</ScrollView>

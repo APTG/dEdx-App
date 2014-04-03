@@ -1,0 +1,170 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity" >
+
+        <TextView
+            android:id="@+id/program_info"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Program:"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/program_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/program_info"
+            android:spinnerMode="dialog" />
+
+        <LinearLayout
+            android:id="@+id/info_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/program_spinner"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/ion_info"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:text="Ion:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/atom_info"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".35"
+                android:text="Mass no. :"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/info_layout"
+            android:orientation="horizontal" >
+
+            <Spinner
+                android:id="@+id/ion_spinner"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".65"
+                android:spinnerMode="dialog" />
+
+            <EditText
+                android:id="@+id/atom_value"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight=".35"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/material_info"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ion_layout"
+            android:text="Target:"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/material_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/material_info"
+            android:spinnerMode="dialog" />
+
+        <TextView
+            android:id="@+id/energy_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/material_spinner"
+            android:text="Type in energy: (MeV/nucleon)"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/energy_value"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/energy_text"
+            android:inputType="numberDecimal" />
+
+        <Button
+            android:id="@+id/calc_stp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/energy_value"
+            android:onClick="calcStp"
+            android:text="Get dE/dx"
+            android:textSize="22sp" />
+        
+        <TextView 
+            android:id="@+id/res_stp_info"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/calc_stp"
+            android:textSize="22sp"
+            android:text="Stopping Power: (MeV cm\u00B2/g)"/>
+
+        <TextView
+            android:id="@+id/stp_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/res_stp_info"
+            android:layout_margin="5dp"
+            android:background="@drawable/border" 
+			android:clickable="true"
+            android:onClick="copySTP"  
+            android:gravity="center"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/calc_csda"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stp_text"
+            android:onClick="calcCSDA"
+            android:text="Get CSDA range"
+            android:textSize="22sp" />
+
+        <TextView 
+            android:id="@+id/res_csda_range_info"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/calc_csda"
+            android:textSize="22sp"
+            android:text="CSDA Range: (g/cm\u00B2)"/>
+        
+        <TextView
+            android:id="@+id/csda_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/res_csda_range_info"
+            android:layout_margin="5dp"
+            android:background="@drawable/border"   
+            android:clickable="true"
+            android:onClick="copyCSDA"     
+            android:gravity="center"
+            android:textSize="22sp" />
+        
+        <ImageView 
+            android:layout_below="@+id/csda_text"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:src="@drawable/logo" />
+    </RelativeLayout>
+
+</ScrollView>
