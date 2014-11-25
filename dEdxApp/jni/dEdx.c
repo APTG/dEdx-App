@@ -195,6 +195,13 @@ Java_dk_au_aptg_dEdx_DedxAPI_dedxGetStp(JNIEnv* env, jobject thiz, jfloat energy
 	return stp;
 }
 
+jfloat
+Java_dk_au_aptg_dEdx_DedxAPI_dedxGetDensity(JNIEnv* env, jobject thiz) {
+	jfloat density = cfg->rho;
+
+	return density;
+}
+
 jdouble
 Java_dk_au_aptg_dEdx_DedxAPI_dedxGetInverseCSDA(JNIEnv* env, jobject thiz, jfloat range, jint ion_a) {
 	int err = 0;

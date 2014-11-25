@@ -30,6 +30,7 @@ public class InverseActivity extends Activity {
 	EditText atomValue;
 	TextView textEnergy_i;
 	TextView textCSDA;
+	EditText textDensity;
 	double result;
 
 	@Override
@@ -78,6 +79,19 @@ public class InverseActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	private void updateDensity() {
+		textDensity = (EditText) findViewById(R.id.density_value_i);
+		
+		int err = dEdx.dedxLoadConfig(getProgramIdx(), getMaterialIdx(), getIonIdx());
+
+		if( err != 0) {
+			printErr(err);
+		} else {
+			float density = dEdx.dedxGetDensity();
+			textDensity.setText(String.format(Locale.US, "%e", density));
+		}
+	}
 
 	private void updateAtom(int ion) {
 		atomValue = (EditText) findViewById(R.id.atom_value_i);
@@ -106,6 +120,17 @@ public class InverseActivity extends Activity {
 			}				
 		}
 		materialSpinner.setSelection(index);
+		materialSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				updateDensity();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+		});
 	}
 
 	private int getProgramIdx() {
@@ -169,7 +194,7 @@ public class InverseActivity extends Activity {
 
 			if(stp >= 0) {
 				result = energy;
-				textEnergy_i.setText(String.format(Locale.US, "%e", energy));
+				textEnergy_i.setText(String.format(Locale.US, "%4.3e", energy));
 			} else {
 				printErr((int)(-1*stp));
 				textEnergy_i.setText("Error");

@@ -4,11 +4,13 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import android.widget.Toast;
  
 public class MainActivity extends TabActivity {
 	DedxAPI dEdx;
@@ -18,26 +20,31 @@ public class MainActivity extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        dEdx = new DedxAPI(getApplicationContext());
-         
-        TabHost tabHost = getTabHost();
-         
-        // Tab for dEdx
-        TabSpec dEdxtab = tabHost.newTabSpec("dE/dx");
-        // setting Title and Icon for the Tab
-        dEdxtab.setIndicator(makeDEdxTab());
-        Intent dEdxIntent = new Intent(this, DedxActivity.class);
-        dEdxtab.setContent(dEdxIntent);
-         
-        // Tab for inverse dEdx
-        TabSpec inversetab = tabHost.newTabSpec("Inverse");        
-        inversetab.setIndicator(makeInvTab());
-        Intent inverseIntent = new Intent(this, InverseActivity.class);
-        inversetab.setContent(inverseIntent);
-         
-        // Adding all TabSpec to TabHost
-        tabHost.addTab(dEdxtab);
-        tabHost.addTab(inversetab);
+        if(!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+        	Toast.makeText(getApplicationContext(), "Sorry, the app need a SD-card present to run.", Toast.LENGTH_LONG).show();
+        	finish();
+        } else {
+        	dEdx = new DedxAPI(getApplicationContext());
+
+        	TabHost tabHost = getTabHost();
+
+        	// Tab for dEdx
+        	TabSpec dEdxtab = tabHost.newTabSpec("dE/dx");
+        	// setting Title and Icon for the Tab
+        	dEdxtab.setIndicator(makeDEdxTab());
+        	Intent dEdxIntent = new Intent(this, DedxActivity.class);
+        	dEdxtab.setContent(dEdxIntent);
+
+        	// Tab for inverse dEdx
+        	TabSpec inversetab = tabHost.newTabSpec("Inverse");        
+        	inversetab.setIndicator(makeInvTab());
+        	Intent inverseIntent = new Intent(this, InverseActivity.class);
+        	inversetab.setContent(inverseIntent);
+
+        	// Adding all TabSpec to TabHost
+        	tabHost.addTab(dEdxtab);
+        	tabHost.addTab(inversetab);
+        }
     }
     
     @Override

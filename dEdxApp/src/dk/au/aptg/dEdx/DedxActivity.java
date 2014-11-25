@@ -7,6 +7,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.DeniedByServerException;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -32,6 +33,7 @@ public class DedxActivity extends Activity {
 	EditText textEnergy;
 	TextView textStp;
 	TextView textCSDA;
+	EditText textDensity;
 	float resSTP;
 	double resCSDA;
 
@@ -81,6 +83,19 @@ public class DedxActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	private void updateDensity() {
+		textDensity = (EditText) findViewById(R.id.density_value);
+		
+		int err = dEdx.dedxLoadConfig(getProgramIdx(), getMaterialIdx(), getIonIdx());
+
+		if( err != 0) {
+			printErr(err);
+		} else {
+			float density = dEdx.dedxGetDensity();
+			textDensity.setText(String.format(Locale.US, "%e", density));
+		}
+	}
 
 	private void updateAtom(int ion) {
 		atomValue = (EditText) findViewById(R.id.atom_value);
@@ -109,6 +124,18 @@ public class DedxActivity extends Activity {
 			}				
 		}
 		materialSpinner.setSelection(index);	
+		materialSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				updateDensity();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+		});
+		
 	}
 
 	private int getProgramIdx() {
@@ -152,6 +179,7 @@ public class DedxActivity extends Activity {
 	public void calcStp(View view) {
 		textEnergy = (EditText) findViewById(R.id.energy_value);
 		textStp = (TextView) findViewById(R.id.stp_text);
+		
 		float energy;
 
 		int err = dEdx.dedxLoadConfig(getProgramIdx(), getMaterialIdx(), getIonIdx());
@@ -171,7 +199,8 @@ public class DedxActivity extends Activity {
 
 			if(stp > 0) {
 				resSTP = stp;
-				textStp.setText(String.format(Locale.US, "%e", stp));
+				textStp.setText(String.format(Locale.US, "%4.3e", stp));
+				
 			} else {
 				printErr((int)(-1*stp));
 				textStp.setText("Error");
@@ -214,7 +243,7 @@ public class DedxActivity extends Activity {
 
 				if(csda > 0) {
 					resCSDA = csda;
-					textCSDA.setText(String.format(Locale.US, "%e", csda));
+					textCSDA.setText(String.format(Locale.US, "%4.3e", csda));
 				} else {
 					printErr((int)(-1*csda));
 					textCSDA.setText("Error");

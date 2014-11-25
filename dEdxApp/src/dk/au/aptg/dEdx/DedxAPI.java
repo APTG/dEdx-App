@@ -3,6 +3,8 @@ package dk.au.aptg.dEdx;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Environment;
+import android.widget.Toast;
 
 
 
@@ -30,6 +32,7 @@ public class DedxAPI {
 	public native int dedxLoadConfig(int program, int target, int ion);
 	public native String dedxGetErrorMsg(int err);
 	public native float dedxGetStp(float energy);
+	public native float dedxGetDensity();
 	public native double dedxGetCSDARange(float energy, int ion_a);
 	public native double dedxGetInverseCSDA(float stp, int ion_a);
 	public native List<DedxIdxName> dedxGetProgramList();

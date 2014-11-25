@@ -1,0 +1,5 @@
+# Ignore class files
+/dEdxApp/bin/*
+
+# Ignore compiled c++ files
+/dEdxApp/obj/*
