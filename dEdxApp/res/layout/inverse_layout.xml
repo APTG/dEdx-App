@@ -88,11 +88,26 @@
             android:spinnerMode="dialog" />
 
         <TextView
-            android:id="@+id/range_text"
+            android:id="@+id/material_density_i"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/material_spinner_i"
-            android:text="Type in CSDA range: (g/cm^2)"
+            android:text="Density:"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/density_value_i"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/material_density_i"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/range_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/density_value_i"
+            android:text="Type in CSDA range: (g/cm\u00B2)"
             android:textSize="20sp" />
 
         <EditText
@@ -111,30 +126,30 @@
             android:text="Calc inverse CSDA"
             android:textSize="22sp" />
 
-        <TextView 
+        <TextView
             android:id="@+id/res_csda_info"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/calc_inverse_csda"
-            android:textSize="26sp"
-            android:text="Energy: (MeV/nucleon)"/>
-        
+            android:text="Energy: (MeV/nucleon)"
+            android:textSize="26sp" />
+
         <TextView
             android:id="@+id/energy_text_i"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/res_csda_info"
             android:layout_margin="5dp"
-            android:background="@drawable/border" 
+            android:background="@drawable/border"
             android:clickable="true"
-            android:onClick="copyResult"
             android:gravity="center"
+            android:onClick="copyResult"
             android:textSize="26sp" />
-        
-         <ImageView 
-            android:layout_below="@+id/energy_text_i"
+
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="75dp"
+            android:layout_below="@+id/energy_text_i"
             android:src="@drawable/logo" />
     </RelativeLayout>
 

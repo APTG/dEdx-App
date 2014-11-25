@@ -87,11 +87,26 @@
             android:layout_below="@+id/material_info"
             android:spinnerMode="dialog" />
 
+         <TextView
+            android:id="@+id/material_density"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/material_spinner"
+            android:text="Density:"
+            android:textSize="20sp" />
+         
+          <EditText
+            android:id="@+id/density_value"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/material_density"
+            android:inputType="numberDecimal" />
+        
         <TextView
             android:id="@+id/energy_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/material_spinner"
+            android:layout_below="@+id/density_value"
             android:text="Type in energy: (MeV/nucleon)"
             android:textSize="20sp" />
 
