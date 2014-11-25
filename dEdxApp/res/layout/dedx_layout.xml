@@ -87,27 +87,27 @@
             android:layout_below="@+id/material_info"
             android:spinnerMode="dialog" />
 
-         <TextView
+        <TextView
             android:id="@+id/material_density"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/material_spinner"
             android:text="Density:"
             android:textSize="20sp" />
-         
-          <EditText
+
+        <EditText
             android:id="@+id/density_value"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/material_density"
             android:inputType="numberDecimal" />
-        
+
         <TextView
             android:id="@+id/energy_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/density_value"
-            android:text="Type in energy: (MeV/nucleon)"
+            android:text="Type in specific energy: (MeV/nucleon)"
             android:textSize="20sp" />
 
         <EditText
@@ -124,15 +124,34 @@
             android:layout_below="@+id/energy_value"
             android:onClick="calcStp"
             android:text="Get dE/dx"
-            android:textSize="22sp" />
-        
-        <TextView 
+            android:textSize="22sp" /><LinearLayout
             android:id="@+id/res_stp_info"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/calc_stp"
-            android:textSize="22sp"
-            android:text="Stopping Power: (MeV cm\u00B2/g)"/>
+            android:layout_below="@+id/calc_stp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Stopping Power: ("
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/unitType"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:onClick="changeUnits"
+                android:text="MeV cm\u00B2/g"
+                android:textColor="#003d85"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=")"
+                android:textSize="22sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/stp_text"
@@ -140,10 +159,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/res_stp_info"
             android:layout_margin="5dp"
-            android:background="@drawable/border" 
-			android:clickable="true"
-            android:onClick="copySTP"  
+            android:background="@drawable/border"
+            android:clickable="true"
             android:gravity="center"
+            android:onClick="copySTP"
             android:textSize="22sp" />
 
         <Button
@@ -155,30 +174,30 @@
             android:text="Get CSDA range"
             android:textSize="22sp" />
 
-        <TextView 
+        <TextView
             android:id="@+id/res_csda_range_info"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/calc_csda"
-            android:textSize="22sp"
-            android:text="CSDA Range: (g/cm\u00B2)"/>
-        
+            android:text="CSDA Range: (g/cm\u00B2)"
+            android:textSize="22sp" />
+
         <TextView
             android:id="@+id/csda_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/res_csda_range_info"
             android:layout_margin="5dp"
-            android:background="@drawable/border"   
+            android:background="@drawable/border"
             android:clickable="true"
-            android:onClick="copyCSDA"     
             android:gravity="center"
+            android:onClick="copyCSDA"
             android:textSize="22sp" />
-        
-        <ImageView 
-            android:layout_below="@+id/csda_text"
+
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="75dp"
+            android:layout_below="@+id/csda_text"
             android:src="@drawable/logo" />
     </RelativeLayout>
 

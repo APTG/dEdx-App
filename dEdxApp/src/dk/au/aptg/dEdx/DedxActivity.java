@@ -36,7 +36,7 @@ public class DedxActivity extends Activity {
 	EditText textDensity;
 	float resSTP;
 	double resCSDA;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -153,6 +153,35 @@ public class DedxActivity extends Activity {
 				Toast.LENGTH_LONG).show();
 	}
 	
+	public void changeUnits(View v) {
+		textStp = (TextView) findViewById(R.id.stp_text);
+		textDensity = (EditText) findViewById(R.id.density_value);
+		TextView textUnit = (TextView) findViewById(R.id.unitType);
+
+		if(!textStp.getText().toString().equals("") && !textStp.getText().toString().equals("Error")) {
+			float stp = Float.valueOf(textStp.getText().toString());
+
+			if(!textDensity.getText().toString().equals("")) {
+				float rho = Float.valueOf(textDensity.getText().toString());
+
+				if(textUnit.getText().toString().equals("MeV cm\u00B2/g")) {
+					textStp.setText(String.format(Locale.US, "%4.3e", stp * rho));
+					textUnit.setText("MeV/cm");
+				} else if(textUnit.getText().toString().equals("MeV/cm")) {
+					textStp.setText(String.format(Locale.US, "%4.3e", 0.1 * stp));
+					textUnit.setText("KeV/\u00b5m");
+				} else {
+					textStp.setText(String.format(Locale.US, "%4.3e", (stp / rho) / 0.1));
+					textUnit.setText("MeV cm\u00B2/g");
+				}
+			} else {
+				Toast.makeText(getApplicationContext(), "Missing density of target", Toast.LENGTH_SHORT).show();
+			}
+		} else {
+			Toast.makeText(getApplicationContext(), "Calculate Stopping Power first", Toast.LENGTH_SHORT).show();
+		}
+	}
+
 	public void copySTP(View v) {
 		copyResult(Float.toString(resSTP));
 	}

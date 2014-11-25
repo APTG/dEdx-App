@@ -1,3 +1,4 @@
+# Ignore auto generated files, compiled files etc.
 /dEdxApp/obj
 /dEdxApp/bin
 /dEdxApp/libs
