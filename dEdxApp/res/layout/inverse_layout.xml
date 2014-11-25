@@ -101,15 +101,36 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/material_density_i"
             android:inputType="numberDecimal" />
-
-        <TextView
+		
+        <LinearLayout
             android:id="@+id/range_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/density_value_i"
-            android:text="Type in CSDA range: (g/cm\u00B2)"
-            android:textSize="20sp" />
+            android:layout_below="@+id/density_value_i" >
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Type in CSDA range: ("
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/unitTypeRange_i"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:onClick="changeUnitsRange"
+                android:text="g/cm\u00B2"
+                android:textColor="#003d85"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=")"
+                android:textSize="22sp" />
+        </LinearLayout>
+        
         <EditText
             android:id="@+id/range_value"
             android:layout_width="fill_parent"

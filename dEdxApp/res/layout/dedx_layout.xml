@@ -124,7 +124,9 @@
             android:layout_below="@+id/energy_value"
             android:onClick="calcStp"
             android:text="Get dE/dx"
-            android:textSize="22sp" /><LinearLayout
+            android:textSize="22sp" />
+
+        <LinearLayout
             android:id="@+id/res_stp_info"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -174,13 +176,34 @@
             android:text="Get CSDA range"
             android:textSize="22sp" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/res_csda_range_info"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/calc_csda"
-            android:text="CSDA Range: (g/cm\u00B2)"
-            android:textSize="22sp" />
+            android:layout_below="@+id/calc_csda" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="CSDA Range: ("
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/unitTypeRange"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:onClick="changeUnitsRange"
+                android:text="g/cm\u00B2"
+                android:textColor="#003d85"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=")"
+                android:textSize="22sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/csda_text"

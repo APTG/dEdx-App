@@ -153,6 +153,32 @@ public class DedxActivity extends Activity {
 				Toast.LENGTH_LONG).show();
 	}
 	
+	public void changeUnitsRange(View v) {
+		textCSDA = (TextView) findViewById(R.id.csda_text);
+		textDensity = (EditText) findViewById(R.id.density_value);
+		TextView textUnit = (TextView) findViewById(R.id.unitTypeRange);
+
+		if(!textCSDA.getText().toString().equals("") && !textCSDA.getText().toString().equals("Error")) {
+			float range = Float.valueOf(textCSDA.getText().toString());
+
+			if(!textDensity.getText().toString().equals("")) {
+				float rho = Float.valueOf(textDensity.getText().toString());
+
+				if(textUnit.getText().toString().equals("g/cm\u00B2")) {
+					textCSDA.setText(String.format(Locale.US, "%4.3e", range / rho));
+					textUnit.setText("cm");
+				} else {
+					textCSDA.setText(String.format(Locale.US, "%4.3e", range * rho));	
+					textUnit.setText("g/cm\u00B2");
+				}
+			} else {
+				Toast.makeText(getApplicationContext(), "Missing density of target", Toast.LENGTH_SHORT).show();
+			}
+		} else {
+			Toast.makeText(getApplicationContext(), "Calculate CSDA Range first", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
 	public void changeUnits(View v) {
 		textStp = (TextView) findViewById(R.id.stp_text);
 		textDensity = (EditText) findViewById(R.id.density_value);
@@ -208,6 +234,7 @@ public class DedxActivity extends Activity {
 	public void calcStp(View view) {
 		textEnergy = (EditText) findViewById(R.id.energy_value);
 		textStp = (TextView) findViewById(R.id.stp_text);
+		TextView textUnit = (TextView) findViewById(R.id.unitType);
 		
 		float energy;
 
@@ -229,6 +256,7 @@ public class DedxActivity extends Activity {
 			if(stp > 0) {
 				resSTP = stp;
 				textStp.setText(String.format(Locale.US, "%4.3e", stp));
+				textUnit.setText("MeV cm\u00B2/g");
 				
 			} else {
 				printErr((int)(-1*stp));
@@ -240,6 +268,7 @@ public class DedxActivity extends Activity {
 	public void calcCSDA(View view) {
 		textEnergy = (EditText) findViewById(R.id.energy_value);
 		textCSDA = (TextView) findViewById(R.id.csda_text);
+		TextView textUnit = (TextView) findViewById(R.id.unitTypeRange);
 		float energy;
 		int atomNum;
 
@@ -273,6 +302,7 @@ public class DedxActivity extends Activity {
 				if(csda > 0) {
 					resCSDA = csda;
 					textCSDA.setText(String.format(Locale.US, "%4.3e", csda));
+					textUnit.setText("g/cm\u00B2");
 				} else {
 					printErr((int)(-1*csda));
 					textCSDA.setText("Error");

@@ -147,6 +147,30 @@ public class InverseActivity extends Activity {
 		Toast.makeText(getApplicationContext(), dEdx.dedxGetErrorMsg(err),
 				Toast.LENGTH_LONG).show();
 	}
+	
+	public void changeUnitsRange(View v) {
+		textCSDA = (TextView) findViewById(R.id.range_value);
+		textDensity = (EditText) findViewById(R.id.density_value_i);
+		TextView textUnit = (TextView) findViewById(R.id.unitTypeRange_i);
+		float range = 0;
+
+		if(!textCSDA.getText().toString().equals(""))
+			range = Float.valueOf(textCSDA.getText().toString());
+
+		if(!textDensity.getText().toString().equals("")) {
+			float rho = Float.valueOf(textDensity.getText().toString());
+
+			if(textUnit.getText().toString().equals("g/cm\u00B2")) {
+				textCSDA.setText(String.format(Locale.US, "%4.3e", range / rho));
+				textUnit.setText("cm");
+			} else {
+				textCSDA.setText(String.format(Locale.US, "%4.3e", range * rho));	
+				textUnit.setText("g/cm\u00B2");
+			}
+		} else {
+			Toast.makeText(getApplicationContext(), "Missing density of target", Toast.LENGTH_SHORT).show();
+		}
+	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void copyResult(View v) {
@@ -166,9 +190,12 @@ public class InverseActivity extends Activity {
 	public void calcInverseCSDA(View v) {
 		textCSDA = (EditText) findViewById(R.id.range_value);
 		textEnergy_i = (TextView) findViewById(R.id.energy_text_i);
-
+		TextView textUnit = (TextView) findViewById(R.id.unitTypeRange_i);
+		textDensity = (EditText) findViewById(R.id.density_value_i);
+	
 		float stp;
 		int atomNum;
+		float rho;
 
 		int err = dEdx.dedxLoadConfig(getProgramIdx(), getMaterialIdx(), getIonIdx());
 
@@ -189,16 +216,24 @@ public class InverseActivity extends Activity {
 				atomNum = 1;
 				atomValue.setText("1");
 			}
+			if(!textDensity.getText().toString().equals("")) {
+				rho = Float.valueOf(textDensity.getText().toString());
 
-			double energy = dEdx.dedxGetInverseCSDA(stp, atomNum);
+				if(textUnit.getText().toString().equals("cm"))
+					stp = stp * rho;
 
-			if(stp >= 0) {
-				result = energy;
-				textEnergy_i.setText(String.format(Locale.US, "%4.3e", energy));
+				double energy = dEdx.dedxGetInverseCSDA(stp, atomNum);
+
+				if(stp >= 0) {
+					result = energy;
+					textEnergy_i.setText(String.format(Locale.US, "%4.3e", energy));
+				} else {
+					printErr((int)(-1*stp));
+					textEnergy_i.setText("Error");
+				}		
 			} else {
-				printErr((int)(-1*stp));
-				textEnergy_i.setText("Error");
-			}			
+				Toast.makeText(getApplicationContext(), "Missing density of target", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 }
