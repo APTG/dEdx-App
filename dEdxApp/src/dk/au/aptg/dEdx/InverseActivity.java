@@ -89,7 +89,7 @@ public class InverseActivity extends Activity {
 			printErr(err);
 		} else {
 			float density = dEdx.dedxGetDensity();
-			textDensity.setText(String.format(Locale.US, "%e", density));
+			textDensity.setText(dEdx.printFloatDensity(density));
 		}
 	}
 
@@ -161,10 +161,10 @@ public class InverseActivity extends Activity {
 			float rho = Float.valueOf(textDensity.getText().toString());
 
 			if(textUnit.getText().toString().equals("g/cm\u00B2")) {
-				textCSDA.setText(String.format(Locale.US, "%4.3e", range / rho));
+				textCSDA.setText(dEdx.printFloat(range / rho));
 				textUnit.setText("cm");
 			} else {
-				textCSDA.setText(String.format(Locale.US, "%4.3e", range * rho));	
+				textCSDA.setText(dEdx.printFloat(range * rho));	
 				textUnit.setText("g/cm\u00B2");
 			}
 		} else {
@@ -226,7 +226,7 @@ public class InverseActivity extends Activity {
 
 				if(stp >= 0) {
 					result = energy;
-					textEnergy_i.setText(String.format(Locale.US, "%4.3e", energy));
+					textEnergy_i.setText(dEdx.printFloat((float)energy));
 				} else {
 					printErr((int)(-1*stp));
 					textEnergy_i.setText("Error");

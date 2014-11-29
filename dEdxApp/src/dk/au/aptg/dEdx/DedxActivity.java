@@ -93,7 +93,7 @@ public class DedxActivity extends Activity {
 			printErr(err);
 		} else {
 			float density = dEdx.dedxGetDensity();
-			textDensity.setText(String.format(Locale.US, "%e", density));
+			textDensity.setText(dEdx.printFloatDensity(density));
 		}
 	}
 
@@ -165,10 +165,10 @@ public class DedxActivity extends Activity {
 				float rho = Float.valueOf(textDensity.getText().toString());
 
 				if(textUnit.getText().toString().equals("g/cm\u00B2")) {
-					textCSDA.setText(String.format(Locale.US, "%4.3e", range / rho));
+					textCSDA.setText(dEdx.printFloat(range / rho));
 					textUnit.setText("cm");
 				} else {
-					textCSDA.setText(String.format(Locale.US, "%4.3e", range * rho));	
+					textCSDA.setText(dEdx.printFloat(range * rho));	
 					textUnit.setText("g/cm\u00B2");
 				}
 			} else {
@@ -191,13 +191,13 @@ public class DedxActivity extends Activity {
 				float rho = Float.valueOf(textDensity.getText().toString());
 
 				if(textUnit.getText().toString().equals("MeV cm\u00B2/g")) {
-					textStp.setText(String.format(Locale.US, "%4.3e", stp * rho));
+					textStp.setText(dEdx.printFloat(stp * rho));
 					textUnit.setText("MeV/cm");
 				} else if(textUnit.getText().toString().equals("MeV/cm")) {
-					textStp.setText(String.format(Locale.US, "%4.3e", 0.1 * stp));
-					textUnit.setText("KeV/\u00b5m");
+					textStp.setText(dEdx.printFloat((float)0.1 * stp));
+					textUnit.setText("keV/\u00b5m");
 				} else {
-					textStp.setText(String.format(Locale.US, "%4.3e", (stp / rho) / 0.1));
+					textStp.setText(dEdx.printFloat((stp / rho) / (float)0.1));
 					textUnit.setText("MeV cm\u00B2/g");
 				}
 			} else {
@@ -235,6 +235,7 @@ public class DedxActivity extends Activity {
 		textEnergy = (EditText) findViewById(R.id.energy_value);
 		textStp = (TextView) findViewById(R.id.stp_text);
 		TextView textUnit = (TextView) findViewById(R.id.unitType);
+		textDensity = (EditText) findViewById(R.id.density_value);
 		
 		float energy;
 
@@ -254,21 +255,28 @@ public class DedxActivity extends Activity {
 			float stp = dEdx.dedxGetStp(energy);
 
 			if(stp > 0) {
-				resSTP = stp;
-				textStp.setText(String.format(Locale.US, "%4.3e", stp));
-				textUnit.setText("MeV cm\u00B2/g");
-				
+				if(!textDensity.getText().toString().equals("")) {
+					float rho = Float.valueOf(textDensity.getText().toString());
+					
+					resSTP = stp;
+					textStp.setText(dEdx.printFloat(stp * rho * (float)0.1));
+					textUnit.setText("keV/\u00b5m");			
+				} else {
+					Toast.makeText(getApplicationContext(), "Missing density of target", Toast.LENGTH_SHORT).show();
+				}		
 			} else {
 				printErr((int)(-1*stp));
 				textStp.setText("Error");
 			}			
 		}
+		calcCSDA(view);
 	}
 
 	public void calcCSDA(View view) {
 		textEnergy = (EditText) findViewById(R.id.energy_value);
 		textCSDA = (TextView) findViewById(R.id.csda_text);
 		TextView textUnit = (TextView) findViewById(R.id.unitTypeRange);
+		textDensity = (EditText) findViewById(R.id.density_value);
 		float energy;
 		int atomNum;
 
@@ -300,9 +308,16 @@ public class DedxActivity extends Activity {
 				double csda= dEdx.dedxGetCSDARange(energy, atomNum);
 
 				if(csda > 0) {
-					resCSDA = csda;
-					textCSDA.setText(String.format(Locale.US, "%4.3e", csda));
-					textUnit.setText("g/cm\u00B2");
+					if(!textDensity.getText().toString().equals("")) {
+						float rho = Float.valueOf(textDensity.getText().toString());
+						
+						resCSDA = csda;
+						textCSDA.setText(dEdx.printFloat((float)csda / rho));
+						textUnit.setText("cm");	
+					} else {
+						Toast.makeText(getApplicationContext(), "Missing density of target", Toast.LENGTH_SHORT).show();
+					}	
+					
 				} else {
 					printErr((int)(-1*csda));
 					textCSDA.setText("Error");

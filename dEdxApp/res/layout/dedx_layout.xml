@@ -107,7 +107,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/density_value"
-            android:text="Type in specific energy: (MeV/nucleon)"
+            android:text="Type in specific energy: [MeV/nucleon]"
             android:textSize="20sp" />
 
         <EditText
@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/energy_value"
             android:onClick="calcStp"
-            android:text="Get dE/dx"
+            android:text="Calculate"
             android:textSize="22sp" />
 
         <LinearLayout
@@ -135,7 +135,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Stopping Power: ("
+                android:text="Stopping Power: ["
                 android:textSize="22sp" />
 
             <TextView
@@ -144,14 +144,14 @@
                 android:layout_height="match_parent"
                 android:clickable="true"
                 android:onClick="changeUnits"
-                android:text="MeV cm\u00B2/g"
+                android:text="keV/\u00b5m"
                 android:textColor="#003d85"
                 android:textSize="22sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text=")"
+                android:text="]"
                 android:textSize="22sp" />
         </LinearLayout>
 
@@ -167,25 +167,16 @@
             android:onClick="copySTP"
             android:textSize="22sp" />
 
-        <Button
-            android:id="@+id/calc_csda"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/stp_text"
-            android:onClick="calcCSDA"
-            android:text="Get CSDA range"
-            android:textSize="22sp" />
-
         <LinearLayout
             android:id="@+id/res_csda_range_info"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/calc_csda" >
+            android:layout_below="@+id/stp_text" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="CSDA Range: ("
+                android:text="CSDA Range: ["
                 android:textSize="22sp" />
 
             <TextView
@@ -194,14 +185,14 @@
                 android:layout_height="match_parent"
                 android:clickable="true"
                 android:onClick="changeUnitsRange"
-                android:text="g/cm\u00B2"
+                android:text="cm"
                 android:textColor="#003d85"
                 android:textSize="22sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text=")"
+                android:text="]"
                 android:textSize="22sp" />
         </LinearLayout>
 
