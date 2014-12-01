@@ -92,7 +92,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/material_spinner_i"
-            android:text="Density:"
+            android:text="Density: [g/cm\u00B3]"
             android:textSize="20sp" />
 
         <EditText
