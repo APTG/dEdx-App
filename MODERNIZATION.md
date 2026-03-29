@@ -4,21 +4,21 @@ Tracking migration from the legacy Eclipse/ADT project (API 18, ~2013) to a mode
 
 ## 1. Project Structure
 
-- [ ] Create new Android Studio project with Gradle build system
-- [ ] Move Java sources: `src/` → `app/src/main/java/dk/au/aptg/dEdx/`
-- [ ] Move resources: `res/` → `app/src/main/res/`
-- [ ] Move assets: `assets/` → `app/src/main/assets/`
-- [ ] Move native sources: `jni/` → `app/src/main/cpp/`
-- [ ] Replace `Android.mk` / `Application.mk` with `CMakeLists.txt`
-- [ ] Wire CMake into `app/build.gradle`
+- [x] Create new Android Studio project with Gradle build system
+- [x] Move Java sources: `src/` → `app/src/main/java/dk/au/aptg/dEdx/`
+- [x] Move resources: `res/` → `app/src/main/res/`
+- [x] Move assets: `assets/` → `app/src/main/assets/`
+- [x] Move native sources: `jni/` → `app/src/main/cpp/`
+- [x] Replace `Android.mk` / `Application.mk` with `CMakeLists.txt`
+- [x] Wire CMake into `app/build.gradle`
 - [ ] Remove all Eclipse project files (`.classpath`, `.cproject`, `.project`, `.settings/`)
 
 ## 2. Manifest & Permissions
 
-- [ ] Update `minSdkVersion` to 21 (Android 5.0)
-- [ ] Update `targetSdkVersion` to 34
-- [ ] Remove `WRITE_EXTERNAL_STORAGE` permission (no longer needed)
-- [ ] Update manifest structure for Gradle (remove `versionCode`/`versionName` from XML, move to `build.gradle`)
+- [x] Update `minSdkVersion` to 21 (Android 5.0)
+- [x] Update `targetSdkVersion` to 34
+- [x] Remove `WRITE_EXTERNAL_STORAGE` permission (no longer needed)
+- [x] Update manifest structure for Gradle (remove `versionCode`/`versionName` from XML, move to `build.gradle`)
 
 ## 3. Deprecated API Fixes
 
@@ -35,8 +35,8 @@ Tracking migration from the legacy Eclipse/ADT project (API 18, ~2013) to a mode
 
 ## 5. libdedx Native Layer
 
-- [ ] Review whether embedded `jni/libdedx/` source matches current libdedx version
-- [ ] If outdated: replace with current libdedx source files
+- [x] Review whether embedded `jni/libdedx/` source matches current libdedx version
+- [x] If outdated: replace with current libdedx source files (updated to v1.3.0)
 - [ ] Verify JNI function signatures in `dEdx.c` still match `DedxAPI.java` after any changes
 
 ## 6. UI / UX (optional polish)
