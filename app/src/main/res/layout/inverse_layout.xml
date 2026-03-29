@@ -119,7 +119,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:clickable="true"
-                android:onClick="changeUnitsRange"
                 android:text="cm"
                 android:textColor="#003d85"
                 android:textSize="22sp" />
@@ -143,7 +142,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/range_value"
-            android:onClick="calcInverseCSDA"
+
             android:text="Calc inverse CSDA"
             android:textSize="22sp" />
 
@@ -164,7 +163,7 @@
             android:background="@drawable/border"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="copyResult"
+
             android:textSize="26sp" />
 
         <ImageView
