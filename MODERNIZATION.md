@@ -39,6 +39,7 @@ Tracking migration from the legacy Eclipse/ADT project (API 18, ~2013) to a mode
 - [x] Verify JNI function signatures in `dEdx.c` still match `DedxAPI.java` after any changes
 - [x] Add `dedxGetVersion()` JNI call returning bundled libdedx version at runtime
 - [x] App version derived from git tags via Gradle; libdedx version decoupled
+- [x] Fix JNI `folder` path: corrected `extern char*` → `extern char[]` type mismatch in `dEdx.c` so libdedx actually reads data files from internal storage
 - [ ] Replace vendored `libdedx/` source with pre-built `.so` from official APTG/libdedx releases (see issue https://github.com/APTG/libdedx/issues/77)
 
 ## 6. UI / UX (optional polish)
@@ -49,8 +50,8 @@ Tracking migration from the legacy Eclipse/ADT project (API 18, ~2013) to a mode
 
 ## 7. Build & Release
 
-- [ ] Confirm app builds and runs on a modern device / emulator (API 34)
-- [ ] Test dE/dx calculation against known values
-- [ ] Test inverse CSDA calculation against known values
+- [x] Confirm app builds and runs on a modern device / emulator (API 34)
+- [x] Test dE/dx calculation against known values
+- [x] Test inverse CSDA calculation against known values (8 cm CSDA → ~102 MeV for protons in water)
 - [ ] Set up signing config in `build.gradle`
 - [ ] Publish to Google Play Store
