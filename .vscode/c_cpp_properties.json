@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Android",
+            "includePath": [
+                "${workspaceFolder}/app/src/main/cpp/**",
+                "${env:HOME}/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include"
+            ],
+            "defines": [
+                "__ANDROID__"
+            ],
+            "compilerPath": "${env:HOME}/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
+            "cStandard": "c11",
+            "intelliSenseMode": "linux-clang-arm64"
+        }
+    ],
+    "version": 4
+}

@@ -3,3 +3,14 @@
 /dEdxApp/bin
 /dEdxApp/libs
 /dEdxApp/gen
+
+# macOS
+.DS_Store
+
+# Gradle / Android Studio
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+app/.cxx/
