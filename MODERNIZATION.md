@@ -28,10 +28,9 @@ Tracking migration from the legacy Eclipse/ADT project (API 18, ~2013) to a mode
 
 ## 4. File Access / SD Card
 
-- [ ] Remove SD card check (`Environment.MEDIA_MOUNTED`) and the associated early exit in `MainActivity`
-- [ ] Remove `Utils.copyToAssets()` — no longer copying data to external storage
-- [ ] Pass `AAssetManager` through JNI so libdedx reads data files directly from `assets/`
-- [ ] Update `DedxAPI` constructor to pass `AAssetManager` instead of an external storage path
+- [x] Remove SD card check (`Environment.MEDIA_MOUNTED`) and the associated early exit in `MainActivity`
+- [x] Replace `Utils.copyToAssets()` — now copies to internal storage (`getFilesDir()`) instead of external
+- [x] Update `DedxAPI` constructor to use `getFilesDir()` — always available, no permission needed
 
 ## 5. libdedx Native Layer
 
@@ -40,7 +39,7 @@ Tracking migration from the legacy Eclipse/ADT project (API 18, ~2013) to a mode
 - [x] Verify JNI function signatures in `dEdx.c` still match `DedxAPI.java` after any changes
 - [x] Add `dedxGetVersion()` JNI call returning bundled libdedx version at runtime
 - [x] App version derived from git tags via Gradle; libdedx version decoupled
-- [ ] Replace vendored `libdedx/` source with pre-built `.so` from official APTG/libdedx releases (see issue)
+- [ ] Replace vendored `libdedx/` source with pre-built `.so` from official APTG/libdedx releases (see issue https://github.com/APTG/libdedx/issues/77)
 
 ## 6. UI / UX (optional polish)
 

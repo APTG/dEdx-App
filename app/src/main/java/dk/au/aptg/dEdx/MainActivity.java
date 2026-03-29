@@ -2,6 +2,7 @@ package dk.au.aptg.dEdx;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,13 +23,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO(11-4): migrate to internal storage — getExternalFilesDir() can return null
-        if (getExternalFilesDir(null) == null) {
-            Toast.makeText(this, "External storage unavailable", Toast.LENGTH_LONG).show();
+        try {
+            dEdx = new DedxAPI(getApplicationContext());
+        } catch (RuntimeException e) {
+            Log.e("MainActivity", "Failed to initialize libdedx", e);
+            Toast.makeText(this, "Failed to initialize: " + e.getMessage(), Toast.LENGTH_LONG).show();
             finish();
             return;
         }
-        dEdx = new DedxAPI(getApplicationContext());
 
         ViewPager2 viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(new DedxPagerAdapter(this));
