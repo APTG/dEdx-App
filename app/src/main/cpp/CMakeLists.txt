@@ -33,7 +33,7 @@ add_library(
     libdedx/tools/dedx_math.c
 )
 
-target_include_directories(dEdx PRIVATE . ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(dEdx PRIVATE . ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/libdedx)
 
 find_library(log-lib log)
 target_link_libraries(dEdx ${log-lib})
