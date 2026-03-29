@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
-import android.os.Environment;
-import android.widget.Toast;
 
 
 
@@ -13,7 +11,11 @@ public class DedxAPI {
 	private int atomList[] = {1,4,7,9,11,12,14,16,19,20,23,24,27,28,31,32,35,40,39,40,45,48,51,52,55,56,59,58,63,64,69,74,75,80,79,84,85,88,89,90,93,98};
 
 	public DedxAPI(Context context) {
-		Utils.copyDataFiles(context);
+		try {
+			Utils.copyDataFiles(context);
+		} catch (java.io.IOException e) {
+			throw new RuntimeException("Failed to copy libdedx data files", e);
+		}
 		dedxInit(context.getFilesDir().getPath() + "/");
 	}
 

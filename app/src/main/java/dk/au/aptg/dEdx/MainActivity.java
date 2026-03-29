@@ -2,6 +2,8 @@ package dk.au.aptg.dEdx;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -21,7 +23,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dEdx = new DedxAPI(getApplicationContext());
+        try {
+            dEdx = new DedxAPI(getApplicationContext());
+        } catch (RuntimeException e) {
+            Log.e("MainActivity", "Failed to initialize libdedx", e);
+            Toast.makeText(this, "Failed to initialize: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
 
         ViewPager2 viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(new DedxPagerAdapter(this));

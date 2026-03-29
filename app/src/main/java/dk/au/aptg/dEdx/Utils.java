@@ -11,30 +11,22 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 public class Utils {
-    public static void copyDataFiles(Context context) {
+    public static void copyDataFiles(Context context) throws IOException {
         AssetManager assetMan = context.getAssets();
-        String[] files = null;
-        try {
-            files = assetMan.list("data");
-        } catch (IOException e) {
-            Log.e("copyDataFiles", "Failed to get asset file list.", e);
+        String[] files = assetMan.list("data");
+        if (files == null) {
+            throw new IOException("Asset directory 'data' not found");
         }
         for (String filename : files) {
-            InputStream in = null;
-            OutputStream out = null;
-            try {
-                in = assetMan.open("data/" + filename);
-                File outFile = new File(context.getFilesDir(), filename);
-                out = new FileOutputStream(outFile);
+            File outFile = new File(context.getFilesDir(), filename);
+            if (outFile.exists()) {
+                Log.d("copyDataFiles", "Skip existing: " + outFile.getName());
+                continue;
+            }
+            try (InputStream in = assetMan.open("data/" + filename);
+                 OutputStream out = new FileOutputStream(outFile)) {
                 Log.d("copyDataFiles", "Copy: data/" + filename + " to " + outFile.getParent());
                 copyFile(in, out);
-                in.close();
-                in = null;
-                out.flush();
-                out.close();
-                out = null;
-            } catch (IOException e) {
-                Log.e("copyDataFiles", "Failed to copy asset file: " + filename, e);
             }
         }
     }
