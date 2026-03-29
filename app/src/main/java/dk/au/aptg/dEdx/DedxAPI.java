@@ -13,8 +13,8 @@ public class DedxAPI {
 	private int atomList[] = {1,4,7,9,11,12,14,16,19,20,23,24,27,28,31,32,35,40,39,40,45,48,51,52,55,56,59,58,63,64,69,74,75,80,79,84,85,88,89,90,93,98};
 
 	public DedxAPI(Context context) {
-		Utils.copyToAssets(context);
-		dedxInit(context.getExternalFilesDir(null).getPath() + "/");
+		Utils.copyDataFiles(context);
+		dedxInit(context.getFilesDir().getPath() + "/");
 	}
 
 	public DedxAPI() {}
