@@ -37,7 +37,10 @@ Tracking migration from the legacy Eclipse/ADT project (API 18, ~2013) to a mode
 
 - [x] Review whether embedded `jni/libdedx/` source matches current libdedx version
 - [x] If outdated: replace with current libdedx source files (updated to v1.3.0)
-- [ ] Verify JNI function signatures in `dEdx.c` still match `DedxAPI.java` after any changes
+- [x] Verify JNI function signatures in `dEdx.c` still match `DedxAPI.java` after any changes
+- [x] Add `dedxGetVersion()` JNI call returning bundled libdedx version at runtime
+- [x] App version derived from git tags via Gradle; libdedx version decoupled
+- [ ] Replace vendored `libdedx/` source with pre-built `.so` from official APTG/libdedx releases (see issue)
 
 ## 6. UI / UX (optional polish)
 
