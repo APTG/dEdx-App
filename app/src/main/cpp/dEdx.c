@@ -100,7 +100,8 @@ void add_linkedList(JNIEnv* env, jobject linkedListObj, jobject dedxIdxNameObj)
 // Global variables
 dedx_workspace *ws = 0;
 dedx_config *cfg = 0;
-char externStoragePath[1000];
+
+extern char folder[]; // defined as char folder[512] in dedx_file_access.c
 
 jint
 JNI_OnLoad(JavaVM* vm, void* reserved) {
@@ -109,11 +110,10 @@ JNI_OnLoad(JavaVM* vm, void* reserved) {
 
 void
 Java_dk_au_aptg_dEdx_DedxAPI_dedxInit(JNIEnv* env, jobject thiz, jstring path) {
-	extern char* folder;
 	const char *nativePath = (*env)->GetStringUTFChars(env, path, 0);
 
-	strcpy(externStoragePath, nativePath);
-	folder = externStoragePath;
+	strcpy(folder, nativePath);
+	(*env)->ReleaseStringUTFChars(env, path, nativePath);
 
 	__android_log_print(ANDROID_LOG_INFO, "libdedx", "init path: %s", folder);
 }
