@@ -22,9 +22,9 @@ Tracking migration from the legacy Eclipse/ADT project (API 18, ~2013) to a mode
 
 ## 3. Deprecated API Fixes
 
-- [ ] Replace `TabActivity` + `TabHost` in `MainActivity` with `AppCompatActivity` + `TabLayout` + `ViewPager2`
-- [ ] Replace `setBackgroundDrawable()` calls with `setBackground()`
-- [ ] Remove pre-Honeycomb clipboard compatibility branch (dead code)
+- [x] Replace `TabActivity` + `TabHost` in `MainActivity` with `AppCompatActivity` + `TabLayout` + `ViewPager2`
+- [x] Replace `setBackgroundDrawable()` calls with `setBackground()`
+- [x] Remove pre-Honeycomb clipboard compatibility branch (dead code)
 
 ## 4. File Access / SD Card
 
