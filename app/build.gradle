@@ -2,6 +2,19 @@ plugins {
     id 'com.android.application'
 }
 
+def getAppVersion() {
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags', '--always', '--dirty'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    } catch (Exception e) {
+        return "unknown"
+    }
+}
+
 android {
     namespace 'dk.au.aptg.dEdx'
     compileSdk 34
@@ -11,7 +24,7 @@ android {
         minSdk 21
         targetSdk 34
         versionCode 4
-        versionName "2.0"
+        versionName getAppVersion()
 
         externalNativeBuild {
             cmake {

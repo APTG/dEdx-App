@@ -1,10 +1,7 @@
 cmake_minimum_required(VERSION 3.22.1)
 project("dEdx" C)
 
-# Generate dedx_config.h from template (mirrors what the main libdedx CMake does)
-set(DEDX_VERSION_MAJOR 1)
-set(DEDX_VERSION_MINOR 3)
-set(DEDX_VERSION_PATCH 0)
+# Data paths — overridden at runtime via JNI, empty strings are fine here
 set(DEDX_DATA_PATH "")
 set(DEDX_DATA_PATH_LOCAL "")
 configure_file(

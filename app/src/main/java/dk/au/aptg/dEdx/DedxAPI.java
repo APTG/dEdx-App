@@ -68,6 +68,7 @@ public class DedxAPI {
 	public native float dedxGetDensity();
 	public native double dedxGetCSDARange(float energy, int ion_a);
 	public native double dedxGetInverseCSDA(float stp, int ion_a);
+	public native String dedxGetVersion();
 	public native List<DedxIdxName> dedxGetProgramList();
 	public native List<DedxIdxName> dedxGetIons(int position);
 	public native List<DedxIdxName> dedxGetMaterials(int position);
