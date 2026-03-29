@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <jni.h>
 #include <android/log.h>
@@ -216,6 +218,14 @@ Java_dk_au_aptg_dEdx_DedxAPI_dedxGetInverseCSDA(JNIEnv* env, jobject thiz, jfloa
 	}
 
 	return energy;
+}
+
+// Update this when syncing a new libdedx into app/src/main/cpp/libdedx/
+#define BUNDLED_LIBDEDX_VERSION "1.3.0"
+
+jstring
+Java_dk_au_aptg_dEdx_DedxAPI_dedxGetVersion(JNIEnv* env, jobject thiz) {
+	return (*env)->NewStringUTF(env, BUNDLED_LIBDEDX_VERSION);
 }
 
 jstring

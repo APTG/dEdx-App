@@ -1,72 +1,76 @@
 package dk.au.aptg.dEdx;
- 
-import android.app.TabActivity;
+
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
-import android.view.Gravity;
-import android.view.MenuItem;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
-import android.widget.TextView;
 import android.widget.Toast;
- 
-public class MainActivity extends TabActivity {
-	DedxAPI dEdx;
+import android.view.Menu;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+public class MainActivity extends AppCompatActivity {
+    DedxAPI dEdx;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        if(!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-        	Toast.makeText(getApplicationContext(), "Sorry, the app need a SD-card present to run.", Toast.LENGTH_LONG).show();
-        	finish();
-        } else {
-        	dEdx = new DedxAPI(getApplicationContext());
 
-        	TabHost tabHost = getTabHost();
-
-        	// Tab for dEdx
-        	TabSpec dEdxtab = tabHost.newTabSpec("dE/dx");
-        	// setting Title and Icon for the Tab
-        	dEdxtab.setIndicator(makeDEdxTab());
-        	Intent dEdxIntent = new Intent(this, DedxActivity.class);
-        	dEdxtab.setContent(dEdxIntent);
-
-        	// Tab for inverse dEdx
-        	TabSpec inversetab = tabHost.newTabSpec("Inverse");        
-        	inversetab.setIndicator(makeInvTab());
-        	Intent inverseIntent = new Intent(this, InverseActivity.class);
-        	inversetab.setContent(inverseIntent);
-
-        	// Adding all TabSpec to TabHost
-        	tabHost.addTab(dEdxtab);
-        	tabHost.addTab(inversetab);
+        // TODO(11-4): migrate to internal storage — getExternalFilesDir() can return null
+        if (getExternalFilesDir(null) == null) {
+            Toast.makeText(this, "External storage unavailable", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
+        dEdx = new DedxAPI(getApplicationContext());
+
+        ViewPager2 viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(new DedxPagerAdapter(this));
+        viewPager.setUserInputEnabled(false);
+
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) ->
+                tab.setText(position == 0 ? "dE/dx" : "Inverse")
+        ).attach();
     }
-    
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	startActivity(new Intent(this, AboutActivity.class));
-    	return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.about) {
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
-    
-	@Override
-	protected void onStop() {
-		super.onStop();
-		dEdx.dedxExit();
-	}
-    
-    private TextView makeDEdxTab() {
-    	TextView tabView = new TextView(this);
-    	tabView.setBackgroundDrawable(getResources().getDrawable(R.drawable.dedx_tab));
-    	return tabView;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dEdx.dedxExit();
     }
-    private TextView makeInvTab() {
-    	TextView tabView = new TextView(this);
-    	tabView.setBackgroundDrawable(getResources().getDrawable(R.drawable.inverse_tab));
-    	return tabView;
+
+    static class DedxPagerAdapter extends FragmentStateAdapter {
+        DedxPagerAdapter(FragmentActivity fa) { super(fa); }
+
+        @Override
+        public int getItemCount() { return 2; }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            return position == 0 ? new DedxFragment() : new InverseFragment();
+        }
     }
 }

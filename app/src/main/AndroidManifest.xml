@@ -17,8 +17,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DedxActivity" />
-        <activity android:name=".InverseActivity" />
         <activity android:name=".AboutActivity" />
     </application>
 

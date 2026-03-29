@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.22.1)
 project("dEdx" C)
 
+# Data paths — overridden at runtime via JNI, empty strings are fine here
+set(DEDX_DATA_PATH "")
+set(DEDX_DATA_PATH_LOCAL "")
+configure_file(
+    libdedx/dedx_config.h.in
+    libdedx/dedx_config.h
+)
+
 add_library(
     dEdx
     SHARED
@@ -22,7 +30,7 @@ add_library(
     libdedx/tools/dedx_math.c
 )
 
-target_include_directories(dEdx PRIVATE .)
+target_include_directories(dEdx PRIVATE . ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/libdedx)
 
 find_library(log-lib log)
 target_link_libraries(dEdx ${log-lib})
