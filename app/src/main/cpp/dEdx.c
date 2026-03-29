@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <string.h>
 #include <jni.h>
 #include <android/log.h>
