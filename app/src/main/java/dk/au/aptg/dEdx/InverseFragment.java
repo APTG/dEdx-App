@@ -40,7 +40,6 @@ public class InverseFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // No-arg constructor intentional: MainActivity has already initialised DedxAPI(Context).
         dEdx = new DedxAPI();
 
         List<DedxIdxName> programList = dEdx.dedxGetProgramList();

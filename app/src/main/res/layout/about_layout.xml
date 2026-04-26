@@ -20,9 +20,9 @@
             android:textSize="28sp" />
 
         <TextView
+            android:id="@+id/about_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/about"
             android:textSize="20sp" />
 
         <TextView

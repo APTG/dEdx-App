@@ -9,6 +9,7 @@
 
 # Gradle / Android Studio
 .claude*/
+.codex
 .gradle/
 build/
 local.properties

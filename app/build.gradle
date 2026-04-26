@@ -4,71 +4,65 @@ plugins {
 
 def getAppVersion() {
     try {
-        def stdout = new ByteArrayOutputStream()
-        exec {
+        return providers.exec {
             commandLine 'git', 'describe', '--tags', '--always', '--dirty'
-            standardOutput = stdout
-        }
-        return stdout.toString().trim()
-    } catch (Exception e) {
+        }.standardOutput.asText.get().trim()
+    } catch (Exception ignored) {
         return "unknown"
     }
 }
 
 def getVersionCode() {
     try {
-        def stdout = new ByteArrayOutputStream()
-        exec {
+        return providers.exec {
             commandLine 'git', 'rev-list', '--count', 'HEAD'
-            standardOutput = stdout
-        }
-        return Integer.parseInt(stdout.toString().trim())
-    } catch (Exception e) {
+        }.standardOutput.asText.get().trim().toInteger()
+    } catch (Exception ignored) {
         return 1
     }
 }
 
 android {
-    namespace 'dk.au.aptg.dEdx'
-    compileSdk 34
-    ndkVersion "28.2.13676358"
+    namespace = 'dk.au.aptg.dEdx'
+    compileSdk = 34
+    ndkVersion = "28.2.13676358"
 
     defaultConfig {
-        applicationId "dk.au.aptg.dEdx"
-        minSdk 21
-        targetSdk 34
-        versionCode getVersionCode()
-        versionName getAppVersion()
+        applicationId = "dk.au.aptg.dEdx"
+        minSdk = 21
+        targetSdk = 34
+        versionCode = getVersionCode()
+        versionName = getAppVersion()
 
         externalNativeBuild {
             cmake {
-                cFlags "-std=c11"
-                abiFilters "arm64-v8a", "armeabi-v7a", "x86_64"
+                cFlags = ["-std=c11"]
+                abiFilters = ["arm64-v8a", "armeabi-v7a", "x86_64"]
             }
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
     externalNativeBuild {
         cmake {
-            path "src/main/cpp/CMakeLists.txt"
-            version "3.22.1"
+            path = "src/main/cpp/CMakeLists.txt"
+            version = "3.22.1"
         }
     }
 
     buildFeatures {
-        buildConfig true
+        buildConfig = true
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 

@@ -31,9 +31,6 @@ jobs:
             "cmake;3.22.1" \
             --sdk_root=$ANDROID_SDK_ROOT
 
-      - name: Generate Gradle wrapper jar
-        run: gradle wrapper --gradle-version 8.13 --distribution-type bin
-
       - name: Build release APK
         run: ./gradlew assembleDebug
 

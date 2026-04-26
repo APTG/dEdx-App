@@ -46,21 +46,21 @@ create_linkedlist(JNIEnv* env)
 	linkedListClass = (*env)->FindClass(env, "java/util/LinkedList");
 	if (linkedListClass == NULL)
 	{
-		__android_log_print(ANDROID_LOG_INFO, "libdedx", "Did not found LinkedList class");
+		__android_log_print(ANDROID_LOG_INFO, "libdedx", "Did not find LinkedList class");
 		return NULL;
 	}
 
 	jmethodID linkedListInit = (*env)->GetMethodID(env, linkedListClass, "<init>", "()V");
 	if (linkedListInit == NULL)
 	{
-		__android_log_print(ANDROID_LOG_INFO, "libdedx", "Did not found LinkedList constructor");
+		__android_log_print(ANDROID_LOG_INFO, "libdedx", "Did not find LinkedList constructor");
 		return NULL;
 	}
 
 	jobject linkedListObj = (*env)->NewObject(env, linkedListClass, linkedListInit);
 	if (linkedListObj == NULL)
 	{
-		__android_log_print(ANDROID_LOG_INFO, "libdedx", "Did not found LinkedList object");
+		__android_log_print(ANDROID_LOG_INFO, "libdedx", "Did not find LinkedList object");
 		return NULL;
 	}
 
@@ -72,7 +72,7 @@ void add_linkedList(JNIEnv* env, jobject linkedListObj, jobject dedxIdxNameObj)
 	jmethodID linkedListAdd = (*env)->GetMethodID(env, linkedListClass, "add", "(Ljava/lang/Object;)Z");
 	if (linkedListAdd == NULL)
 	{
-		__android_log_print(ANDROID_LOG_INFO, "libdedx", "Did not found LinkedList add method");
+		__android_log_print(ANDROID_LOG_INFO, "libdedx", "Did not find LinkedList add method");
 	}
 
 	jboolean result = (*env)->CallBooleanMethod(env, linkedListObj, linkedListAdd, dedxIdxNameObj);
@@ -92,12 +92,6 @@ dedx_config *cfg = 0;
 jint
 JNI_OnLoad(JavaVM* vm, void* reserved) {
 	return JNI_VERSION_1_6;
-}
-
-void
-Java_dk_au_aptg_dEdx_DedxAPI_dedxInit(JNIEnv* env, jobject thiz, jstring path) {
-	/* Data is embedded in libdedx.so — no data path needed. */
-	(void)env; (void)thiz; (void)path;
 }
 
 jint
