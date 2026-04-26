@@ -2,5 +2,8 @@
     "java.import.exclusions": [
         "**/build/**",
         "**/.cxx/**"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.import.gradle.wrapper.enabled": true,
+    "java.import.gradle.version": "9.3.1"
 }

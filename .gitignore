@@ -8,9 +8,12 @@
 .DS_Store
 
 # Gradle / Android Studio
+.claude*/
+.codex
 .gradle/
 build/
 local.properties
 *.iml
 .idea/
 app/.cxx/
+*aab
