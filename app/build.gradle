@@ -23,12 +23,9 @@ android {
 
     signingConfigs {
         release {
-            def b64 = System.getenv("KEYSTORE_BASE64")
-            if (b64) {
-                def ks = file("${buildDir}/keystore.jks")
-                ks.parentFile.mkdirs()
-                ks.bytes = b64.decodeBase64()
-                storeFile = ks
+            def ksPath = System.getenv("KEYSTORE_PATH")
+            if (ksPath) {
+                storeFile = file(ksPath)
             }
             storePassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
             keyAlias = System.getenv("KEY_ALIAS") ?: "dedx-upload"
@@ -57,7 +54,7 @@ android {
         release {
             minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            if (System.getenv("KEYSTORE_BASE64")) {
+            if (System.getenv("KEYSTORE_PATH")) {
                 signingConfig = signingConfigs.release
             }
         }
