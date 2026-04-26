@@ -1,6 +1,6 @@
 name: Android CI
 
-on:
+'on':
   pull_request:
     branches: [ main, 11-app-modernization ]
 

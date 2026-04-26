@@ -1,6 +1,6 @@
 name: Release
 
-on:
+'on':
   push:
     tags:
       - 'v*'
@@ -31,17 +31,22 @@ jobs:
             "cmake;3.22.1" \
             --sdk_root=$ANDROID_SDK_ROOT
 
-      - name: Build release APK
-        run: ./gradlew assembleDebug
+      - name: Build signed release AAB
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew bundleRelease
 
-      - name: Rename APK with version
+      - name: Rename AAB with version
         run: |
           VERSION=${GITHUB_REF_NAME}
-          mv app/build/outputs/apk/debug/app-debug.apk \
-             app/build/outputs/apk/debug/dEdx-${VERSION}.apk
+          mv app/build/outputs/bundle/release/app-release.aab \
+             app/build/outputs/bundle/release/dEdx-${VERSION}.aab
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          files: app/build/outputs/apk/debug/dEdx-${{ github.ref_name }}.apk
+          files: app/build/outputs/bundle/release/dEdx-${{ github.ref_name }}.aab
           generate_release_notes: true

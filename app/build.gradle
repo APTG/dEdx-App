@@ -2,28 +2,39 @@ plugins {
     id 'com.android.application'
 }
 
-def getAppVersion() {
+def gitVersionCode() {
     try {
-        return providers.exec {
-            commandLine 'git', 'describe', '--tags', '--always', '--dirty'
-        }.standardOutput.asText.get().trim()
-    } catch (Exception ignored) {
-        return "unknown"
-    }
-}
-
-def getVersionCode() {
-    try {
-        return providers.exec {
-            commandLine 'git', 'rev-list', '--count', 'HEAD'
-        }.standardOutput.asText.get().trim().toInteger()
+        return "git rev-list --count HEAD".execute(null, rootDir).text.trim().toInteger()
     } catch (Exception ignored) {
         return 1
     }
 }
 
+def gitVersionName() {
+    try {
+        return "git describe --tags --always --dirty".execute(null, rootDir).text.trim() ?: "unknown"
+    } catch (Exception ignored) {
+        return "unknown"
+    }
+}
+
 android {
     namespace = 'dk.au.aptg.dEdx'
+
+    signingConfigs {
+        release {
+            def b64 = System.getenv("KEYSTORE_BASE64")
+            if (b64) {
+                def ks = file("${buildDir}/keystore.jks")
+                ks.parentFile.mkdirs()
+                ks.bytes = b64.decodeBase64()
+                storeFile = ks
+            }
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
+            keyAlias = System.getenv("KEY_ALIAS") ?: "dedx-app"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: ""
+        }
+    }
     compileSdk = 34
     ndkVersion = "28.2.13676358"
 
@@ -31,8 +42,8 @@ android {
         applicationId = "dk.au.aptg.dEdx"
         minSdk = 21
         targetSdk = 34
-        versionCode = getVersionCode()
-        versionName = getAppVersion()
+        versionCode = gitVersionCode()
+        versionName = gitVersionName()
 
         externalNativeBuild {
             cmake {
@@ -46,6 +57,9 @@ android {
         release {
             minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (System.getenv("KEYSTORE_BASE64")) {
+                signingConfig = signingConfigs.release
+            }
         }
     }
 
