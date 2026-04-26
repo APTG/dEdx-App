@@ -32,13 +32,13 @@ android {
             keyPassword = System.getenv("KEY_PASSWORD") ?: System.getenv("KEYSTORE_PASSWORD") ?: ""
         }
     }
-    compileSdk = 34
+    compileSdk = 35
     ndkVersion = "28.2.13676358"
 
     defaultConfig {
         applicationId = "io.github.aptg.dedx"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = gitVersionCode()
         versionName = gitVersionName()
 
