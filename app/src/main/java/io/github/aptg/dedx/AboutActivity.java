@@ -1,4 +1,4 @@
-package dk.au.aptg.dEdx;
+package io.github.aptg.dedx;
 
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;

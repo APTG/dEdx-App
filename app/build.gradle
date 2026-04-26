@@ -19,7 +19,7 @@ def gitVersionName() {
 }
 
 android {
-    namespace = 'dk.au.aptg.dEdx'
+    namespace = 'io.github.aptg.dedx'
 
     signingConfigs {
         release {
@@ -36,7 +36,7 @@ android {
     ndkVersion = "28.2.13676358"
 
     defaultConfig {
-        applicationId = "dk.au.aptg.dEdx"
+        applicationId = "io.github.aptg.dedx"
         minSdk = 21
         targetSdk = 34
         versionCode = gitVersionCode()
