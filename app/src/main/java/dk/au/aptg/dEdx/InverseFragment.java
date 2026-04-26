@@ -40,9 +40,7 @@ public class InverseFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // No-arg constructor intentional: MainActivity has already called DedxAPI(Context)
-        // which runs Utils.copyToAssets() and dedxInit(). Fragments only use the native state.
-        // TODO(11-4): replace with internal storage init so this dependency is explicit.
+        // No-arg constructor intentional: MainActivity has already initialised DedxAPI(Context).
         dEdx = new DedxAPI();
 
         List<DedxIdxName> programList = dEdx.dedxGetProgramList();

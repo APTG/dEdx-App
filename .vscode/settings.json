@@ -2,5 +2,6 @@
     "java.import.exclusions": [
         "**/build/**",
         "**/.cxx/**"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

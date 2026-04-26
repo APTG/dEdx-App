@@ -7,6 +7,6 @@
     <string name="about">dEdx and libdEdx are developed by the Aarhus Particle Therapy Group with support from the Danish Cancer Society. 
         \n\nlibdEdx was written by Jakob Toftegaard and Niels Bassler at the Dept. of Physics and Astronomy and Dept. of Experimental Clinical Oncology with support from Armin Lühr, Helge Knudsen and David C. Hansen. <b>\nWe do not claim any correctness of the produced results, any use of these data are at own risk.</b>
         \n\nThe app is developed by Casper Christensen, student at Aarhus University
-        \n\nlibdEdx version used in this app is: SVN-250</string>
+        </string>
 
 </resources>

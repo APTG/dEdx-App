@@ -11,12 +11,7 @@ public class DedxAPI {
 	private int atomList[] = {1,4,7,9,11,12,14,16,19,20,23,24,27,28,31,32,35,40,39,40,45,48,51,52,55,56,59,58,63,64,69,74,75,80,79,84,85,88,89,90,93,98};
 
 	public DedxAPI(Context context) {
-		try {
-			Utils.copyDataFiles(context);
-		} catch (java.io.IOException e) {
-			throw new RuntimeException("Failed to copy libdedx data files", e);
-		}
-		dedxInit(context.getFilesDir().getPath() + "/");
+		/* libdedx v1.4.0 embeds all data — no file copying or path needed. */
 	}
 
 	public DedxAPI() {}
@@ -62,7 +57,6 @@ public class DedxAPI {
 	 * which is packaged with this application.
 	 */
 
-	public native int dedxInit(String path);
 	public native int dedxExit();
 	public native int dedxLoadConfig(int program, int target, int ion);
 	public native String dedxGetErrorMsg(int err);
@@ -79,6 +73,7 @@ public class DedxAPI {
 	 * this is used to load the 'dedx' library on application startup.
 	 */
 	static {
+		System.loadLibrary("dedx");
 		System.loadLibrary("dEdx");
 	}
 }
