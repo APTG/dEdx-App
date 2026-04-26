@@ -15,7 +15,7 @@ jclass linkedListClass;
 jobject
 create_dedxIdxName(JNIEnv* env, jint idx, jstring name)
 {
-	jclass dedxIdxNameClass = (*env)->FindClass(env, "dk/au/aptg/dEdx/DedxIdxName");
+	jclass dedxIdxNameClass = (*env)->FindClass(env, "io/github/aptg/dedx/DedxIdxName");
 	if (dedxIdxNameClass == NULL)
 	{
 		__android_log_print(ANDROID_LOG_INFO, "libdedx", "Not found DedxIdxName class");
