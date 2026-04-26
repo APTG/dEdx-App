@@ -1,4 +1,4 @@
-package dk.au.aptg.dEdx;
+package io.github.aptg.dedx;
 
 import android.content.Intent;
 import android.os.Bundle;

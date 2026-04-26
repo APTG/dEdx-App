@@ -95,7 +95,7 @@ JNI_OnLoad(JavaVM* vm, void* reserved) {
 }
 
 jint
-Java_dk_au_aptg_dEdx_DedxAPI_dedxExit(JNIEnv* env, jobject thiz) {
+Java_io_github_aptg_dedx_DedxAPI_dedxExit(JNIEnv* env, jobject thiz) {
 	int err = 0;
 
 	if(ws != 0) {
@@ -116,7 +116,7 @@ Java_dk_au_aptg_dEdx_DedxAPI_dedxExit(JNIEnv* env, jobject thiz) {
 }
 
 jint
-Java_dk_au_aptg_dEdx_DedxAPI_dedxLoadConfig(JNIEnv* env, jobject thiz, jint program, jint target, jint ion) {
+Java_io_github_aptg_dedx_DedxAPI_dedxLoadConfig(JNIEnv* env, jobject thiz, jint program, jint target, jint ion) {
 	int err = 0;
 
 	if(cfg != 0) {
@@ -154,7 +154,7 @@ Java_dk_au_aptg_dEdx_DedxAPI_dedxLoadConfig(JNIEnv* env, jobject thiz, jint prog
 }
 
 jfloat
-Java_dk_au_aptg_dEdx_DedxAPI_dedxGetStp(JNIEnv* env, jobject thiz, jfloat energy) {
+Java_io_github_aptg_dedx_DedxAPI_dedxGetStp(JNIEnv* env, jobject thiz, jfloat energy) {
 	int err = 0;
 
 	jfloat stp = dedx_get_stp(ws, cfg, energy, &err);
@@ -167,12 +167,12 @@ Java_dk_au_aptg_dEdx_DedxAPI_dedxGetStp(JNIEnv* env, jobject thiz, jfloat energy
 }
 
 jfloat
-Java_dk_au_aptg_dEdx_DedxAPI_dedxGetDensity(JNIEnv* env, jobject thiz) {
+Java_io_github_aptg_dedx_DedxAPI_dedxGetDensity(JNIEnv* env, jobject thiz) {
 	return cfg->rho;
 }
 
 jdouble
-Java_dk_au_aptg_dEdx_DedxAPI_dedxGetInverseCSDA(JNIEnv* env, jobject thiz, jfloat range, jint ion_a) {
+Java_io_github_aptg_dedx_DedxAPI_dedxGetInverseCSDA(JNIEnv* env, jobject thiz, jfloat range, jint ion_a) {
 	int err = 0;
 
 	cfg->ion_a = ion_a;
@@ -186,19 +186,19 @@ Java_dk_au_aptg_dEdx_DedxAPI_dedxGetInverseCSDA(JNIEnv* env, jobject thiz, jfloa
 }
 
 jstring
-Java_dk_au_aptg_dEdx_DedxAPI_dedxGetVersion(JNIEnv* env, jobject thiz) {
+Java_io_github_aptg_dedx_DedxAPI_dedxGetVersion(JNIEnv* env, jobject thiz) {
 	return (*env)->NewStringUTF(env, dedx_get_version_string());
 }
 
 jstring
-Java_dk_au_aptg_dEdx_DedxAPI_dedxGetErrorMsg(JNIEnv* env, jobject thiz, jint err) {
+Java_io_github_aptg_dedx_DedxAPI_dedxGetErrorMsg(JNIEnv* env, jobject thiz, jint err) {
 	char errorMsg[100];
 	dedx_get_error_code(&errorMsg[0], err);
 	return (*env)->NewStringUTF(env, errorMsg);
 }
 
 jdouble
-Java_dk_au_aptg_dEdx_DedxAPI_dedxGetCSDARange(JNIEnv* env, jobject thiz, jfloat energy, jint ion_a) {
+Java_io_github_aptg_dedx_DedxAPI_dedxGetCSDARange(JNIEnv* env, jobject thiz, jfloat energy, jint ion_a) {
 	int err = 0;
 
 	cfg->ion_a = ion_a;
@@ -212,7 +212,7 @@ Java_dk_au_aptg_dEdx_DedxAPI_dedxGetCSDARange(JNIEnv* env, jobject thiz, jfloat 
 }
 
 jobject
-Java_dk_au_aptg_dEdx_DedxAPI_dedxGetProgramList(JNIEnv* env, jobject thiz) {
+Java_io_github_aptg_dedx_DedxAPI_dedxGetProgramList(JNIEnv* env, jobject thiz) {
 	jobject linkedListObj = create_linkedlist(env);
 
 	const int* p;
@@ -229,7 +229,7 @@ Java_dk_au_aptg_dEdx_DedxAPI_dedxGetProgramList(JNIEnv* env, jobject thiz) {
 }
 
 jobject
-Java_dk_au_aptg_dEdx_DedxAPI_dedxGetIons(JNIEnv* env, jobject thiz, jint program) {
+Java_io_github_aptg_dedx_DedxAPI_dedxGetIons(JNIEnv* env, jobject thiz, jint program) {
 	jobject linkedListObj = create_linkedlist(env);
 
 	const int* p;
@@ -244,7 +244,7 @@ Java_dk_au_aptg_dEdx_DedxAPI_dedxGetIons(JNIEnv* env, jobject thiz, jint program
 }
 
 jobject
-Java_dk_au_aptg_dEdx_DedxAPI_dedxGetMaterials(JNIEnv* env, jobject thiz, jint program) {
+Java_io_github_aptg_dedx_DedxAPI_dedxGetMaterials(JNIEnv* env, jobject thiz, jint program) {
 	jobject linkedListObj = create_linkedlist(env);
 
 	const int* p;
